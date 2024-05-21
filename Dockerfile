@@ -14,7 +14,20 @@ libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \
 libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev \
 lzma lzma-dev tk-dev uuid-dev zlib1g-dev
 
+# RUN curl -fsSL https://code-server.dev/install.sh | sh
+# RUN code-server --install-extension ms-python.python
+#RUN curl -fsSL https://code-server.dev/install.sh | sh
+#RUN code --install-extension ms-python.python --force -y
+RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg \
+    && install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/ \
+    && sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' \
+    && apt-get update
 
+# Install VSCode
+RUN apt-get install -y code
+
+RUN yes | code --install-extension ms-python.python --no-sandbox --user-data-dir /path/user-data --extensions-dir /path/extensions
+RUN apt-get install -y unzip
 
 COPY code.desktop /usr/share/applications/code.desktop
 

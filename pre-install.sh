@@ -34,6 +34,8 @@ fi
 apt-get install /vscode.deb -y
 rm /vscode.deb
 
+
+
 # make default folder to put config files
 # (This should already have been done by the Dockerfile COPY directives.)
 mkdir -p /opt/defaults

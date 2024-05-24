@@ -50,7 +50,7 @@ RUN git clone https://github.com/python/cpython.git
 WORKDIR /path/to/directory/cpython
 RUN ./configure --with-pydebug
 RUN make -s -j2
-
+COPY temp-answers.txt /path/to/directory/cpython/Lib/idlelib/temp-answers.txt
 
 
 
